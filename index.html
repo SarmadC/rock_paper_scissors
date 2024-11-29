@@ -8,7 +8,23 @@
 </head>
 
 <body>
+
+    <button class="rock" type="button" > Rock</button>
+    <button class="scissors" type="button"> Scissors </button>
+    <button class="paper" type="button" > Paper </button>
+
+    <div id="log-message">Display Results</div>
+
     <script>
+
+        const buttons = document.querySelectorAll("button");
+
+        buttons.forEach(button => {
+            button.addEventListener("click", () => {
+                const playerSelection = button.className;
+                playRound(playerSelection);
+            });
+        });
 
         let humanScore = 0;
         let computerScore = 0;
@@ -30,44 +46,38 @@
             return computerMove;
         }
 
-        function getHumanChoice() {
-            let human_move = prompt('Rock, Paper, or Scissors?');
-            human_move = human_move.toLocaleLowerCase();
-            console.log(human_move);
-            return human_move;
-        }
-
-        function playRound() {
-            const human_move = getHumanChoice();
+        function playRound(playerSelection) {
+            const human_move = playerSelection;
             const computerMove = getComputerChoice();
             if (human_move === 'scissors' && computerMove === 'paper') {
-                console.log(human_move)
-                console.log('Scissor beats Paper! You win');
+                const displayDiv = document.getElementById('log-message')
+                displayDiv.textContent = `You've played ${human_move}
+                Scissor beats Paper! You win`;
                 humanScore += 1;
             }
             else if (human_move === 'scissors' && computerMove === 'rock') {
-                console.log(human_move)
-                console.log('Computer wins');
+                displayDiv.textContent = `You've played ${human_move}
+                Rock beats Paper! You lose!`
                 computerScore += 1;
             }
             else if (human_move === 'paper' && computerMove === 'rock') {
-                console.log(human_move)
-                console.log('Paper beats Rock! You win!');
+                displayDiv.textContent = `You've played ${human_move}
+                Paper beats rock! You win`;
                 humanScore += 1;
             }
             else if (human_move === 'paper' && computerMove === 'scissors') {
-                console.log(human_move)
-                console.log('Computer wins');
+                displayDiv.textContent = `You've played ${human_move}
+                Scissor beats Paper! You lose!`;
                 computerScore += 1;
             }
             else if (human_move === 'rock' && computerMove === 'scissors') {
-                console.log(human_move)
-                console.log('Rock Beats Scissors. You win!');
+                displayDiv.textContent = `You've played ${human_move}
+                Rock beats scissors! You win`;
                 humanScore += 1;
             }
             else if (human_move === 'rock' && computerMove === 'paper') {
-                console.log(human_move)
-                console.log('Computer wins');
+                displayDiv.textContent = `You've played ${human_move}
+                Paper beats rock! You lose!`;
                 computerScore += 1;
             }
             else {
