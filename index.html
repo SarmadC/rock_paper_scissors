@@ -9,15 +9,16 @@
 
 <body>
 
-    <button class="rock" type="button" > Rock</button>
+    <button class="rock" type="button"> Rock</button>
     <button class="scissors" type="button"> Scissors </button>
-    <button class="paper" type="button" > Paper </button>
+    <button class="paper" type="button"> Paper </button>
 
     <div id="log-message">Display Results</div>
 
     <script>
 
         const buttons = document.querySelectorAll("button");
+        const displayDiv = document.getElementById('log-message');
 
         buttons.forEach(button => {
             button.addEventListener("click", () => {
@@ -33,15 +34,15 @@
             let computerMove = Math.random();
             if (computerMove < 0.34) {
                 computerMove = 'rock';
-                console.log(computerMove)
+                displayDiv.textContent = (computerMove)
             }
             else if (computerMove >= 0.34 && computerMove < 0.66) {
                 computerMove = 'paper';
-                console.log(computerMove)
+                displayDiv.textContent = (computerMove);
             }
             else {
                 computerMove = 'scissors';
-                console.log(computerMove)
+                displayDiv.textContent = (computerMove)
             }
             return computerMove;
         }
@@ -49,50 +50,67 @@
         function playRound(playerSelection) {
             const human_move = playerSelection;
             const computerMove = getComputerChoice();
+
             if (human_move === 'scissors' && computerMove === 'paper') {
-                const displayDiv = document.getElementById('log-message')
-                displayDiv.textContent = `You've played ${human_move}
-                Scissor beats Paper! You win`;
                 humanScore += 1;
+                computerScore += 0;
+                displayDiv.textContent = `You've played ${human_move} \n
+                Scissor beats Paper! You win \n Current score: User - ${humanScore} vs. Computer - ${computerScore} `;
+                declareWinner();
             }
+
             else if (human_move === 'scissors' && computerMove === 'rock') {
-                displayDiv.textContent = `You've played ${human_move}
-                Rock beats Paper! You lose!`
                 computerScore += 1;
+                humanScore += 0;
+                displayDiv.textContent = `You've played ${human_move} \n
+                Rock beats Paper! You lose! \n Current score: User - ${humanScore} vs. Computer - ${computerScore} `;
+                declareWinner();
+
             }
             else if (human_move === 'paper' && computerMove === 'rock') {
-                displayDiv.textContent = `You've played ${human_move}
-                Paper beats rock! You win`;
                 humanScore += 1;
+                computerScore += 0;
+                displayDiv.textContent = `You've played ${human_move} \n
+                Paper beats rock! You win \n Current score: User - ${humanScore} vs. Computer - ${computerScore} `;
+                declareWinner();
             }
             else if (human_move === 'paper' && computerMove === 'scissors') {
-                displayDiv.textContent = `You've played ${human_move}
-                Scissor beats Paper! You lose!`;
                 computerScore += 1;
+                humanScore += 0;
+                displayDiv.textContent = `You've played ${human_move} \n
+                Scissor beats Paper! You lose! \n Current score: User - ${humanScore} vs. Computer - ${computerScore} `;
+                declareWinner();
             }
             else if (human_move === 'rock' && computerMove === 'scissors') {
-                displayDiv.textContent = `You've played ${human_move}
-                Rock beats scissors! You win`;
                 humanScore += 1;
+                computerScore += 0;
+                displayDiv.textContent = `You've played ${human_move} \n
+                Rock beats scissors! You win \n Current score: User - ${humanScore} vs. Computer - ${computerScore} `;
+                declareWinner();
             }
             else if (human_move === 'rock' && computerMove === 'paper') {
-                displayDiv.textContent = `You've played ${human_move}
-                Paper beats rock! You lose!`;
                 computerScore += 1;
+                humanScore += 0;
+                displayDiv.textContent = `You've played ${human_move} \n
+                Paper beats rock! You lose!  \n Current score: User - ${humanScore} vs. Computer - ${computerScore}`;
+                declareWinner();
             }
             else {
-                console.log(human_move)
-                console.log("Tie")
+                displayDiv.textContent = `Tie`;
+                declareWinner();
             }
         }
 
-        function playGame(n) {
-            for (let i = 0; i < n; i++) {
-                playRound();
-                console.log('Human Score: ' + humanScore + ' Computer Score: ' + computerScore)
+        function declareWinner(){
+            if (computerScore == 5){
+                displayDiv.textContent = "Computer wins!";
+                buttons.forEach(button => button.disabled = true);
+            }
+            else if(humanScore == 5) {
+                displayDiv.textContent = "Human wins";
+                buttons.forEach(button => bbutton.disabled = true);
             }
         }
-
     </script>
 </body>
 
